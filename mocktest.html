@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Mock Test | EduMCQHub</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .test-container {
+      max-width: 800px;
+      margin: 2rem auto;
+      background: #fff;
+      padding: 2rem;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+
+    .question {
+      margin-bottom: 20px;
+    }
+
+    .question h3 {
+      margin-bottom: 10px;
+    }
+
+    .options input {
+      margin-right: 10px;
+    }
+
+    #submit-btn {
+      margin-top: 20px;
+      padding: 10px 20px;
+      background: #27ae60;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    #result {
+      margin-top: 20px;
+      font-weight: bold;
+      font-size: 1.2rem;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="test-container">
+    <h2>🧪 Mock Test – Computer Science</h2>
+
+    <form id="mockTestForm">
+      
+      <!-- Q1 -->
+      <div class="question">
+        <h3>1. What is the full form of CPU?</h3>
+        <div class="options">
+          <label><input type="radio" name="q1" value="a"> Central Processing Unit</label><br>
+          <label><input type="radio" name="q1" value="b"> Control Program Unit</label><br>
+          <label><input type="radio" name="q1" value="c"> Computer Processing Utility</label><br>
+          <label><input type="radio" name="q1" value="d"> Central Programming Unit</label>
+        </div>
+      </div>
+
+      <!-- Q2 -->
+      <div class="question">
+        <h3>2. Which data structure uses FIFO?</h3>
+        <div class="options">
+          <label><input type="radio" name="q2" value="a"> Stack</label><br>
+          <label><input type="radio" name="q2" value="b"> Queue</label><br>
+          <label><input type="radio" name="q2" value="c"> Tree</label><br>
+          <label><input type="radio" name="q2" value="d"> Graph</label>
+        </div>
+      </div>
+
+      <!-- Add more questions below using same format -->
+
+      <button type="button" id="submit-btn" onclick="calculateScore()">Submit Test</button>
+
+      <div id="result"></div>
+    </form>
+  </div>
+
+  <script>
+    function calculateScore() {
+      let score = 0;
+      let total = 2; // update if you add more questions
+
+      const answers = {
+        q1: "a", // correct answer for Q1
+        q2: "b"  // correct answer for Q2
+      };
+
+      for (let key in answers) {
+        const selected = document.querySelector(`input[name="${key}"]:checked`);
+        if (selected && selected.value === answers[key]) {
+          score++;
+        }
+      }
+
+      document.getElementById("result").innerText = `Your Score: ${score} / ${total}`;
+    }
+  </script>
+
+</body>
+</html>

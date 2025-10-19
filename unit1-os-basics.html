@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Unit 1: OS Basics</title>
+  <link rel="stylesheet" href="styleunit1stos.css">
+  <script defer src="scriptosunit1.js"></script>
+</head>
+<body>
+
+  <!-- LEFT MOTIVATIONAL PANEL -->
+  <div class="side-panel left-panel">
+    <h3>💡 Inspiration</h3>
+    <blockquote>"Your attention is your RAM — manage it wisely."</blockquote>
+    <blockquote>"OS = Order + System. Life bhi waise hi."</blockquote>
+    <img id="leftImage" class="side-image" src="assets/inspire1.jpg" alt="Inspire Left">
+  </div>
+
+  <!-- RIGHT MOTIVATIONAL PANEL -->
+  <div class="side-panel right-panel">
+    <h3>⚙️ Motivation</h3>
+    <blockquote>"Processes don’t pause — why should you?"</blockquote>
+    <blockquote>"Every bug is a teacher in disguise."</blockquote>
+    <img id="rightImage" class="side-image" src="assets/motivate1.jpg" alt="Inspire Right">
+  </div>
+
+  <!-- MAIN CONTENT -->
+  <div class="container">
+    <h1>🧠 Unit 1: OS Basics</h1>
+
+    <h2>🔍 What is Operating System?</h2>
+    <p>An OS is system software that acts as a bridge between user and hardware. It manages CPU, memory, I/O devices and ensures execution of programs.</p>
+
+    <blockquote>"OS ek bridge hai jo user aur hardware ke beech coordination banata hai."</blockquote>
+
+    <pre>
+User
+ ↓
+Operating System
+ ↓ ↓ ↓
+CPU   Memory   I/O Devices
+    </pre>
+
+    <h3>❓ Quiz:</h3>
+    <ul>
+      <li>Q1: Main role of OS? ✅ <strong>B. Managing hardware resources</strong></li>
+      <li>Q2: OS bridges between? ✅ <strong>B. User and hardware</strong></li>
+    </ul>
+
+    <p><strong>Shortcut Tag:</strong> OS = Resource Manager + Interface Layer</p>
+
+    <hr>
+
+    <h2>📂 Types of Operating Systems</h2>
+    <p>Different types of OS are used based on task handling, time sensitivity, and resource management.</p>
+
+    <ul>
+      <li><strong>Batch OS:</strong> Executes grouped jobs without interaction.</li>
+      <li><strong>Time-Sharing OS:</strong> CPU slices are shared among users.</li>
+      <li><strong>Real-Time OS:</strong> Used in robotics, medical devices.</li>
+      <li><strong>Distributed OS:</strong> Controls multiple systems as one.</li>
+      <li><strong>Embedded OS:</strong> Lightweight for appliances.</li>
+    </ul>
+
+    <div class="image-box">
+      <img src="assets/types-of-os.png" alt="Types of OS">
+    </div>
+
+    <p><strong>Shortcut Tag:</strong> Task Style + User Load + Response Time</p>
+
+    <h3>📝 Quick Quiz:</h3>
+    <ul>
+      <li>Q: OS used in washing machines? ✅ <strong>Embedded OS</strong></li>
+      <li>Q: OS that gives CPU slices? ✅ <strong>Time-Sharing OS</strong></li>
+    </ul>
+
+    <!-- SYSTEM CALLS -->
+<hr>
+<h2>🧩 System Calls in Operating Systems</h2>
+<p>System Calls OS ke core interface hote hain — jinke through user programs OS services ko access karte hain.</p>
+
+<h3>📘 Definition:</h3>
+<p><strong>System Call</strong> is a programmatic way in which a computer program requests a service from the operating system.</p>
+
+<h3>📑 Types of System Calls:</h3>
+<table>
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td>Process Control</td><td>Create, terminate, load, execute processes</td></tr>
+    <tr><td>File Management</td><td>Open, read, write, close files</td></tr>
+    <tr><td>Device Management</td><td>Request, release, attach devices</td></tr>
+    <tr><td>Information Maintenance</td><td>Get system time, date, process info</td></tr>
+    <tr><td>Communication</td><td>Send/receive messages between processes</td></tr>
+  </tbody>
+</table>
+
+<h3>🧪 Example (C Code):</h3>
+<pre>
+#include &lt;unistd.h&gt;
+
+int main() {
+  write(1, "Hello Gaurav!\n", 14);
+  return 0;
+}
+</pre>
+<p><strong>write()</strong> yahan ek system call hai jo output screen pe data bhejta hai.</p>
+
+<h3>🧭 System Call Flow Diagram:</h3>
+<pre>
+[User Program]
+        ↓
+[System Call Interface]
+        ↓
+[Operating System Kernel]
+        ↓
+[Hardware]
+</pre>
+
+<h3>🎯 Quiz Time — System Calls:</h3>
+<ul>
+  <li>Q1: What is a system call?</li>
+  <li>Q2: Name two types of system calls.</li>
+  <li>Q3: How does a user program interact with OS?</li>
+  <li>Q4: Give one example of a system call in C.</li>
+  <li>Q5: What is the role of system call interface?</li>
+</ul>
+
+<!-- PROCESS MANAGEMENT -->
+<hr>
+<h2>🔄 Process Management in Operating Systems</h2>
+<p>OS processes ka management karta hai — creation, execution, scheduling, termination sab yahi handle karta hai.</p>
+
+<h3>🔢 Classification:</h3>
+<ul>
+  <li><strong>Process:</strong> Ek executing program jiska apna state, memory, aur resources hote hain.</li>
+  <li><strong>Process States:</strong> New → Ready → Running → Waiting → Terminated</li>
+  <li><strong>PCB (Process Control Block):</strong> Process ka pura data store karta hai — PID, state, registers, memory info.</li>
+  <li><strong>Context Switching:</strong> Ek process se dusre pe switch karne ka mechanism — CPU state save/restore hota hai.</li>
+  <li><strong>Scheduling Types:</strong> 
+    <ul>
+      <li>Long-term (job selection)</li>
+      <li>Short-term (ready queue se CPU allocation)</li>
+      <li>Medium-term (suspend/resume)</li>
+    </ul>
+  </li>
+</ul>
+
+<h3>📎 Examples:</h3>
+<ul>
+  <li>PCB: PID = 102, State = Running, Memory = 4MB</li>
+  <li>Context Switching: Performed by UNIX Kernel</li>
+  <li>Scheduling: Round Robin, FCFS, SJF</li>
+</ul>
+
+<p><strong>Shortcut Tag:</strong> Process Management = Process + States + PCB + Context Switch + Scheduling</p>
+
+<h3>🧠 Quiz Time — Process Management:</h3>
+<ul>
+  <li>Q1: PCB kya store karta hai? ✅ <strong>C) Process ka full state info</strong></li>
+  <li>Q2: Context switching kab hota hai? ✅ <strong>B) Jab ek process se dusre pe switch ho</strong></li>
+  <li>Q3: Short-term scheduler ka kaam kya hai? ✅ <strong>B) CPU ko ready process dena</strong></li>
+</ul>
+
+<!-- OS SERVICES -->
+<hr>
+<h2>🛠️ Operating System Services</h2>
+<p>OS kuch essential services provide karta hai jo user aur applications ke liye environment ko efficient aur secure banate hain.</p>
+
+<ul>
+  <li><strong>Program Execution:</strong> Programs ko load aur execute karta hai.</li>
+  <li><strong>I/O Operations:</strong> Input/output devices ke saath interaction manage karta hai.</li>
+  <li><strong>File System Manipulation:</strong> Files ko create, delete, read, write karta hai.</li>
+  <li><strong>Communication:</strong> Inter-process communication ke liye mechanisms deta hai.</li>
+  <li><strong>Error Detection:</strong> Errors detect karta hai aur fix karne ke actions leta hai.</li>
+  <li><strong>Resource Allocation:</strong> CPU, memory, I/O devices jaise resources allocate karta hai.</li>
+  <li><strong>Accounting:</strong> Resource usage ka track rakhta hai (monitoring/billing ke liye).</li>
+</ul>
+
+<p><strong>Bonus Tag:</strong> Process Quiz Topics = PCB + Context Switch + Scheduler</p>
+
+
+    <div class="nav-buttons">
+      <a class="nav-link" href="index.html">← Back to Index</a>
+      <a class="nav-link" href="unit2-process-management.html">Next →</a>
+    </div>
+  </div>
+</body>
+</html>

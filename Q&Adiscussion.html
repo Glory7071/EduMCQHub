@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>💬 Doubt Discussion | EduMCQHub</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f6f8;
+      margin: 0;
+      padding: 0 10px;
+    }
+    .container {
+      max-width: 800px;
+      margin: 30px auto;
+      background: white;
+      padding: 25px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+      color: #2c3e50;
+    }
+    textarea, input {
+      width: 100%;
+      padding: 12px;
+      margin-bottom: 10px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      resize: vertical;
+    }
+    button {
+      background: #2980b9;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 6px;
+      cursor: pointer;
+      margin-bottom: 15px;
+    }
+    button:hover {
+      background: #1c5980;
+    }
+    .question {
+      background: #ecf0f1;
+      padding: 15px;
+      border-radius: 8px;
+      margin-bottom: 15px;
+    }
+    .question strong {
+      color: #2c3e50;
+    }
+    .replies {
+      margin-top: 10px;
+      padding-left: 15px;
+      border-left: 2px solid #ccc;
+    }
+    .reply {
+      margin-bottom: 8px;
+      background: #fff;
+      padding: 8px;
+      border-radius: 6px;
+      border: 1px solid #ddd;
+    }
+    .reply-input {
+      margin-top: 10px;
+    }
+    .clear-btn {
+      background: #e74c3c;
+      margin-left: auto;
+    }
+    @media (max-width: 600px) {
+      .container {
+        padding: 15px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>💬 Doubt Discussion Board</h2>
+    <textarea id="questionInput" placeholder="Type your doubt/question here..."></textarea>
+    <button onclick="addQuestion()">➕ Post Question</button>
+    <button onclick="clearAll()" class="clear-btn">🗑 Clear All</button>
+
+    <div id="questionsList"></div>
+  </div>
+
+  <script>
+    let questions = JSON.parse(localStorage.getItem('qa_questions')) || [];
+
+    function saveToStorage() {
+      localStorage.setItem('qa_questions', JSON.stringify(questions));
+    }
+
+    function renderQuestions() {
+      const list = document.getElementById('questionsList');
+      list.innerHTML = "";
+
+      if (questions.length === 0) {
+        list.innerHTML = "<p>No questions yet. Be the first to ask!</p>";
+        return;
+      }
+
+      questions.forEach((q, index) => {
+        const div = document.createElement('div');
+        div.className = "question";
+        div.innerHTML = `
+          <strong>Q${index + 1}:</strong> ${q.text}
+          <div class="replies">
+            ${q.replies.map(reply => `<div class="reply">👉 ${reply}</div>`).join('')}
+            <div class="reply-input">
+              <input type="text" placeholder="Write a reply..." onkeydown="handleReply(event, ${index})" />
+            </div>
+          </div>
+        `;
+        list.appendChild(div);
+      });
+    }
+
+    function addQuestion() {
+      const input = document.getElementById('questionInput');
+      const text = input.value.trim();
+      if (text === "") return;
+
+      questions.unshift({ text, replies: [] });
+      input.value = "";
+      saveToStorage();
+      renderQuestions();
+    }
+
+    function handleReply(event, index) {
+      if (event.key === "Enter") {
+        const replyText = event.target.value.trim();
+        if (replyText === "") return;
+        questions[index].replies.push(replyText);
+        event.target.value = "";
+        saveToStorage();
+        renderQuestions();
+      }
+    }
+
+    function clearAll() {
+      if (confirm("Are you sure you want to clear all questions and replies?")) {
+        questions = [];
+        saveToStorage();
+        renderQuestions();
+      }
+    }
+
+    // Initial render
+    renderQuestions();
+  </script>
+</body>
+</html>

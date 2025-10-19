@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Computer Science MCQs</title>
+  <link rel="stylesheet" href="../style.css">
+  <style>
+    .mcq-container { max-width: 800px; margin: 2rem auto; background: #fff; padding: 2rem; border-radius: 10px; box-shadow: 0 0 10px rgba(0,0,0,0.1);}
+    .question { margin-bottom: 20px; }
+    .question h3 { margin-bottom: 10px; }
+    .options button { display: block; margin: 5px 0; padding: 10px; border: 1px solid #ccc; border-radius: 5px; background: #f9f9f9; cursor: pointer;}
+    .options button.correct { background-color: #d4edda; border-color: #28a745; color: #155724;}
+    .options button.wrong { background-color: #f8d7da; border-color: #dc3545; color: #721c24;}
+  </style>
+</head>
+<body>
+
+  <div class="mcq-container">
+    <h2>Computer Science – MCQ Practice</h2>
+
+    <!-- Question 1 -->
+    <div class="question">
+      <h3>1. What does HTML stand for?</h3>
+      <div class="options">
+        <button onclick="checkAnswer(this, true)">HyperText Markup Language</button>
+        <button onclick="checkAnswer(this, false)">HighText Machine Language</button>
+        <button onclick="checkAnswer(this, false)">Hyperlink and Text Markup Language</button>
+        <button onclick="checkAnswer(this, false)">Home Tool Markup Language</button>
+      </div>
+    </div>
+
+    <!-- Question 2 -->
+    <div class="question">
+      <h3>2. Which of the following is not a programming language?</h3>
+      <div class="options">
+        <button onclick="checkAnswer(this, false)">Python</button>
+        <button onclick="checkAnswer(this, false)">Java</button>
+        <button onclick="checkAnswer(this, true)">HTML</button>
+        <button onclick="checkAnswer(this, false)">C++</button>
+      </div>
+    </div>
+
+    <!-- Add more questions here -->
+     <!-- Question -->
+<div class="question">
+  <h3>X. [Question Text]</h3>
+  <div class="options">
+    <button onclick="checkAnswer(this, true)">Correct Answer</button>
+    <button onclick="checkAnswer(this, false)">Wrong 1</button>
+    <button onclick="checkAnswer(this, false)">Wrong 2</button>
+    <button onclick="checkAnswer(this, false)">Wrong 3</button>
+  </div>
+</div>
+
+
+  </div>
+
+  <script>
+    function checkAnswer(button, isCorrect) {
+      const options = button.parentElement.querySelectorAll('button');
+      options.forEach(btn => {
+        btn.disabled = true;
+        btn.classList.remove('correct', 'wrong');
+      });
+      button.classList.add(isCorrect ? 'correct' : 'wrong');
+    }
+  </script>
+
+</body>
+</html>

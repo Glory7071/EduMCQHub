@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>How to Prepare for CUET PG in 3 Months</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #fdfdfd;
+      padding: 20px;
+      line-height: 1.6;
+    }
+    .container {
+      max-width: 800px;
+      margin: auto;
+    }
+    h1 {
+      color: #2c3e50;
+      font-size: 2rem;
+    }
+    .meta {
+      font-size: 0.9rem;
+      color: #888;
+      margin-bottom: 1.5rem;
+    }
+    p {
+      margin-bottom: 1rem;
+      color: #333;
+    }
+    ul {
+      padding-left: 1.2rem;
+    }
+    a.back {
+      display: inline-block;
+      margin-top: 2rem;
+      text-decoration: none;
+      color: #2980b9;
+      font-weight: bold;
+    }
+    a.back:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>How to Prepare for CUET PG in 3 Months</h1>
+    <div class="meta">Published on Oct 18, 2025 • By EduMCQHub Team</div>
+
+    <p>Preparing for CUET PG with limited time? Don't worry. Here's a focused 3-month study plan you can follow:</p>
+
+    <h3>📅 Month-wise Strategy:</h3>
+    <ul>
+      <li><strong>Month 1:</strong> Focus on fundamentals – revise important topics, solve topic-wise MCQs</li>
+      <li><strong>Month 2:</strong> Mix of revision + mock tests. Take weekly mocks and analyze mistakes.</li>
+      <li><strong>Month 3:</strong> Pure revision. Focus on PYQs, high-weightage chapters, and time management.</li>
+    </ul>
+
+    <h3>📌 Resources to Use:</h3>
+    <ul>
+      <li>EduMCQHub’s <strong>10,000+ MCQ Practice</strong></li>
+      <li><strong>Expert Notes</strong> for quick revision</li>
+      <li><strong>PYQs</strong> to understand real exam patterns</li>
+      <li>Timed <strong>Mock Tests</strong> for full-length practice</li>
+    </ul>
+
+    <p>Stay consistent, take care of your health, and avoid overloading yourself with too many resources.</p>
+
+    <a href="blog.html" class="back">← Back to Blog</a>
+    <hr />
+<h2>💬 Comments</h2>
+
+<div id="commentSection">
+  <input type="text" id="commentName" placeholder="Your Name" style="width:100%; padding:10px; margin-bottom:8px; border-radius:5px; border:1px solid #ccc;">
+  <textarea id="commentText" rows="4" placeholder="Write your comment..." style="width:100%; padding:10px; border-radius:5px; border:1px solid #ccc;"></textarea>
+  <button onclick="addComment()" style="margin-top:10px; padding:10px 20px; background:#2980b9; color:white; border:none; border-radius:5px; cursor:pointer;">Post Comment</button>
+  <div id="commentsList" style="margin-top:20px;"></div>
+</div>
+<script>
+  const commentKey = 'blog-comments-1'; // unique for this blog post
+
+  function loadComments() {
+    const data = JSON.parse(localStorage.getItem(commentKey)) || [];
+    const container = document.getElementById("commentsList");
+    container.innerHTML = "";
+
+    if (data.length === 0) {
+      container.innerHTML = "<p>No comments yet. Be the first to share your thoughts!</p>";
+      return;
+    }
+
+    data.forEach((c, index) => {
+      const div = document.createElement("div");
+      div.style = "background:#f4f4f4; padding:10px; border-radius:5px; margin-bottom:10px; position: relative;";
+      div.innerHTML = `
+        <strong>${c.name}</strong><br>
+        <p style="margin:5px 0;">${c.text}</p>
+        <button onclick="deleteComment(${index})" 
+                style="position:absolute; top:10px; right:10px; background:#e74c3c; border:none; color:#fff; border-radius:3px; padding: 2px 7px; cursor:pointer;">Delete</button>
+      `;
+      container.appendChild(div);
+    });
+  }
+
+  function addComment() {
+    const name = document.getElementById("commentName").value.trim();
+    const text = document.getElementById("commentText").value.trim();
+
+    if (!name || !text) {
+      alert("Please fill in both name and comment.");
+      return;
+    }
+
+    const existing = JSON.parse(localStorage.getItem(commentKey)) || [];
+    existing.unshift({ name, text });
+    localStorage.setItem(commentKey, JSON.stringify(existing));
+
+    document.getElementById("commentName").value = "";
+    document.getElementById("commentText").value = "";
+
+    loadComments();
+  }
+
+  function deleteComment(index) {
+    const data = JSON.parse(localStorage.getItem(commentKey)) || [];
+    data.splice(index, 1);
+    localStorage.setItem(commentKey, JSON.stringify(data));
+    loadComments();
+  }
+
+  // Load comments on page load
+  loadComments();
+</script>
+<!--new checkup for delet comment-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Blog Post with Comments</title>
+  <style>
+    #commentSection {
+      max-width: 600px;
+      margin: 2rem auto;
+      padding: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      background: #fafafa;
+      font-family: Arial, sans-serif;
+    }
+    #commentSection input, #commentSection textarea {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 10px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      box-sizing: border-box;
+      font-size: 1rem;
+    }
+    #commentSection button {
+      background: #2980b9;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 1rem;
+    }
+    #commentSection button:hover {
+      background: #1c5980;
+    }
+    .comment {
+      background: #fff;
+      padding: 10px 15px;
+      margin-bottom: 15px;
+      border-radius: 6px;
+      position: relative;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+    .comment strong {
+      font-weight: 700;
+      color: #34495e;
+    }
+    .comment p {
+      margin: 8px 0 0 0;
+      white-space: pre-wrap;
+    }
+    .comment button {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: #e74c3c;
+      border: none;
+      color: white;
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-size: 0.85rem;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+    .comment button.edit-btn {
+      right: 50px;
+      background: #27ae60;
+    }
+    .comment button:hover {
+      opacity: 0.8;
+    }
+  </style>
+</head>
+<body>
+
+  <div id="commentSection">
+    <h3>Comments</h3>
+    <input type="text" id="commentName" placeholder="Your Name" />
+    <textarea id="commentText" rows="4" placeholder="Write your comment..."></textarea>
+    <button onclick="addComment()">Post Comment</button>
+
+    <div id="commentsList" style="margin-top: 20px;"></div>
+  </div>
+
+  <script>
+    const commentKey = 'blog-comments-1'; // Unique key per blog post
+
+    // On page load, ask for username once
+    let currentUser = localStorage.getItem('currentUserName');
+    if (!currentUser) {
+      currentUser = prompt("Please enter your name to enable editing your comments:").trim() || "Guest";
+      localStorage.setItem('currentUserName', currentUser);
+    }
+
+    function loadComments() {
+      const data = JSON.parse(localStorage.getItem(commentKey)) || [];
+      const container = document.getElementById("commentsList");
+      container.innerHTML = "";
+
+      if (data.length === 0) {
+        container.innerHTML = "<p>No comments yet. Be the first to share your thoughts!</p>";
+        return;
+      }
+
+      data.forEach((c, index) => {
+        const div = document.createElement("div");
+        div.className = "comment";
+        div.innerHTML = `
+          <strong>${escapeHtml(c.name)}</strong>
+          <p id="commentText${index}">${escapeHtml(c.text)}</p>
+          ${c.name === currentUser ? `<button class="edit-btn" onclick="editComment(${index})">Edit</button>` : ''}
+          <button onclick="deleteComment(${index})">Delete</button>
+        `;
+        container.appendChild(div);
+      });
+    }
+
+    function addComment() {
+      const nameInput = document.getElementById("commentName");
+      const textInput = document.getElementById("commentText");
+      const name = nameInput.value.trim();
+      const text = textInput.value.trim();
+
+      if (!name || !text) {
+        alert("Please fill in both name and comment.");
+        return;
+      }
+
+      if(name !== currentUser){
+        alert(`You must post comment with your name: "${currentUser}"`);
+        return;
+      }
+
+      const existing = JSON.parse(localStorage.getItem(commentKey)) || [];
+      existing.unshift({ name, text });
+      localStorage.setItem(commentKey, JSON.stringify(existing));
+
+      nameInput.value = "";
+      textInput.value = "";
+
+      loadComments();
+    }
+
+    function editComment(index) {
+      const data = JSON.parse(localStorage.getItem(commentKey)) || [];
+      if (data[index].name !== currentUser) {
+        alert("You can only edit your own comments!");
+        return;
+      }
+      const newText = prompt("Edit your comment:", data[index].text);
+      if (newText !== null && newText.trim() !== "") {
+        data[index].text = newText.trim();
+        localStorage.setItem(commentKey, JSON.stringify(data));
+        loadComments();
+      }
+    }
+
+    function deleteComment(index) {
+      const adminPassword = "admin123"; // Change this password!
+      const input = prompt("Enter admin password to delete this comment:");
+
+      if (input === adminPassword) {
+        const data = JSON.parse(localStorage.getItem(commentKey)) || [];
+        data.splice(index, 1);
+        localStorage.setItem(commentKey, JSON.stringify(data));
+        loadComments();
+        alert("Comment deleted successfully.");
+      } else {
+        alert("Incorrect password! You cannot delete comments.");
+      }
+    }
+
+    // Simple helper to avoid HTML injection in comments
+    function escapeHtml(text) {
+      return text
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+    }
+
+    // Initialize comments on page load
+    loadComments();
+  </script>
+
+</body>
+</html>
+
+
+
+<script>
+  const commentKey = 'blog-comments-1'; // unique for this blog post
+
+  function loadComments() {
+    const data = JSON.parse(localStorage.getItem(commentKey)) || [];
+    const container = document.getElementById("commentsList");
+    container.innerHTML = "";
+
+    if (data.length === 0) {
+      container.innerHTML = "<p>No comments yet. Be the first to share your thoughts!</p>";
+      return;
+    }
+
+    data.forEach(c => {
+      const div = document.createElement("div");
+      div.style = "background:#f4f4f4; padding:10px; border-radius:5px; margin-bottom:10px;";
+      div.innerHTML = `<strong>${c.name}</strong><br>${c.text}`;
+      container.appendChild(div);
+    });
+  }
+
+  function addComment() {
+    const name = document.getElementById("commentName").value.trim();
+    const text = document.getElementById("commentText").value.trim();
+
+    if (!name || !text) {
+      alert("Please fill in both name and comment.");
+      return;
+    }
+
+    const existing = JSON.parse(localStorage.getItem(commentKey)) || [];
+    existing.unshift({ name, text });
+    localStorage.setItem(commentKey, JSON.stringify(existing));
+
+    document.getElementById("commentName").value = "";
+    document.getElementById("commentText").value = "";
+
+    loadComments();
+  }
+
+  // Load comments on page load
+  loadComments();
+</script>
+
+  </div>
+</body>
+</html>

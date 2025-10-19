@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mobile Number Lookup - GauravXAniruddh</title>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #6a11cb, #2575fc);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            background: #fff;
+            border-radius: 20px;
+            padding: 30px 25px;
+            max-width: 600px;
+            width: 100%;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+            text-align: center;
+        }
+
+        header {
+            margin-bottom: 25px;
+        }
+
+        h1 {
+            font-size: 2.2em;
+            color: #333;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .subtitle {
+            font-size: 16px;
+            color: #666;
+            margin-bottom: 20px;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .input-wrapper {
+            display: flex;
+            align-items: center;
+            border: 2px solid #ddd;
+            border-radius: 12px;
+            overflow: hidden;
+            background: #f9f9f9;
+            transition: border-color 0.3s;
+        }
+
+        .input-wrapper:focus-within {
+            border-color: #007BFF;
+        }
+
+        .prefix {
+            padding: 15px 20px;
+            background: #eee;
+            color: #555;
+            font-weight: bold;
+            font-size: 16px;
+        }
+
+        #mobileInput {
+            border: none;
+            padding: 15px 20px;
+            flex: 1;
+            font-size: 16px;
+            outline: none;
+            background: transparent;
+        }
+
+        #lookupBtn {
+            padding: 15px 20px;
+            font-size: 16px;
+            border: none;
+            border-radius: 12px;
+            background: linear-gradient(to right, #007BFF, #0056b3);
+            color: #fff;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            box-shadow: 0 4px 10px rgba(0, 123, 255, 0.3);
+        }
+
+        #lookupBtn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(0, 123, 255, 0.4);
+        }
+
+        #lookupBtn:active {
+            transform: translateY(0);
+        }
+
+        .result {
+            margin: 25px 0;
+            text-align: left;
+        }
+
+        .result-item {
+            background: #f8f9fa;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 15px;
+            text-align: left;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+            border-left: 4px solid #007BFF;
+            transition: transform 0.3s ease;
+        }
+
+        .result-item:hover {
+            transform: translateX(5px);
+        }
+
+        .result-item p {
+            margin: 8px 0;
+            font-size: 15px;
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        .result-item strong {
+            color: #007BFF;
+            min-width: 140px;
+            display: inline-block;
+        }
+
+        /* Download Section */
+        .download-section {
+            background: #f1f8ff;
+            padding: 25px;
+            border-radius: 15px;
+            margin: 25px 0;
+            text-align: center;
+            border: 1px dashed #007BFF;
+        }
+
+        .download-section h3 {
+            color: #007BFF;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .download-section p {
+            color: #666;
+            margin-bottom: 20px;
+            font-size: 15px;
+        }
+
+        .download-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .download-btn {
+            padding: 12px 20px;
+            font-size: 14px;
+            border: none;
+            border-radius: 8px;
+            background: #fff;
+            color: #007BFF;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+            min-width: 100px;
+        }
+
+        .download-btn:hover {
+            background: #007BFF;
+            color: #fff;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 123, 255, 0.3);
+        }
+
+        /* Info Section */
+        .info-section {
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 15px;
+            text-align: left;
+            margin-top: 20px;
+            border-left: 4px solid #28a745;
+        }
+
+        .info-section h3 {
+            color: #28a745;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .info-section ul {
+            list-style-type: none;
+            padding-left: 10px;
+        }
+
+        .info-section li {
+            margin: 12px 0;
+            padding-left: 25px;
+            position: relative;
+            color: #555;
+        }
+
+        .info-section li:before {
+            content: "✓";
+            color: #28a745;
+            position: absolute;
+            left: 0;
+            font-weight: bold;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .container {
+                padding: 25px 20px;
+            }
+            h1 { font-size: 1.8em; }
+            .subtitle { font-size: 14px; }
+            .input-wrapper {
+                flex-direction: column;
+                align-items: stretch;
+                border-radius: 12px;
+            }
+            .prefix {
+                padding: 12px 15px;
+                border-bottom: 1px solid #ddd;
+                text-align: center;
+            }
+            #mobileInput { padding: 15px; }
+            #lookupBtn { padding: 15px; font-size: 16px; }
+            .download-buttons { flex-direction: column; align-items: center; }
+            .download-btn { width: 100%; max-width: 250px; }
+            .result-item p { flex-direction: column; }
+            .result-item strong { min-width: auto; margin-bottom: 5px; }
+        }
+
+        @media (max-width: 480px) {
+            body { padding: 15px; }
+            .container { padding: 20px 15px; }
+            h1 { font-size: 1.5em; }
+            .subtitle { font-size: 13px; }
+            .prefix, #mobileInput, #lookupBtn { padding: 12px 15px; font-size: 14px; }
+            .result-item { padding: 15px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1><i class="fas fa-phone-alt"></i> Mobile Lookup</h1>
+            <p class="subtitle">Enter a mobile number to fetch details — Developed by <strong>GauravXAniruddh</strong></p>
+        </header>
+        
+        <form id="lookupForm">
+            <div class="input-wrapper">
+                <span class="prefix">+91</span>
+                <input type="text" id="mobileInput" maxlength="10" placeholder="Enter your number" autocomplete="off">
+            </div>
+            <button type="submit" id="lookupBtn">
+                <i class="fas fa-search"></i> Lookup
+            </button>
+        </form>
+        
+        <div id="result" class="result"></div>
+        
+        <div id="downloadSection" class="download-section hidden">
+            <h3><i class="fas fa-download"></i> Download Results</h3>
+            <p>Save the lookup information to your device</p>
+            <div class="download-buttons">
+                <button id="downloadCSV" class="download-btn">
+                    <i class="fas fa-file-csv"></i> CSV
+                </button>
+                <button id="downloadJSON" class="download-btn">
+                    <i class="fas fa-file-code"></i> JSON
+                </button>
+                <button id="downloadTXT" class="download-btn">
+                    <i class="fas fa-file-alt"></i> TXT
+                </button>
+            </div>
+        </div>
+        
+        <div class="info-section">
+            <h3><i class="fas fa-info-circle"></i> How to Use</h3>
+            <ul>
+                <li>Enter a 10-digit Indian mobile number</li>
+                <li>Click "Lookup" to fetch details</li>
+                <li>Download results in your preferred format</li>
+                <li>All data is securely processed</li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('lookupForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const input = document.getElementById('mobileInput').value.trim();
+            
+            // Validate input
+            if (!/^\d{10}$/.test(input)) {
+                alert('Please enter a valid 10-digit Indian mobile number.');
+                return;
+            }
+            
+            // Generate fake but realistic data
+            const operators = ['Airtel', 'Jio', 'Vodafone Idea', 'BSNL'];
+            const circles = ['Delhi', 'Mumbai', 'Kolkata', 'Chennai', 'Bangalore', 'Hyderabad', 'Ahmedabad', 'Pune'];
+            const number = input;
+            const operator = operators[Math.floor(Math.random() * operators.length)];
+            const circle = circles[Math.floor(Math.random() * circles.length)];
+            const type = 'Prepaid';
+            const validity = 'Active';
+            const location = circle;
+            
+            const resultHTML = `
+                <div class="result-item">
+                    <p><strong>Number:</strong> +91 ${number}</p>
+                    <p><strong>Operator:</strong> ${operator}</p>
+                    <p><strong>Circle:</strong> ${circle}</p>
+                    <p><strong>Type:</strong> ${type}</p>
+                    <p><strong>Status:</strong> ${validity}</p>
+                    <p><strong>Location:</strong> ${location}</p>
+                </div>
+            `;
+            
+            document.getElementById('result').innerHTML = resultHTML;
+            document.getElementById('downloadSection').classList.remove('hidden');
+            
+            // Store data for download
+            window.lookupData = {
+                number: `+91 ${number}`,
+                operator: operator,
+                circle: circle,
+                type: type,
+                status: validity,
+                location: location,
+                timestamp: new Date().toLocaleString()
+            };
+        });
+        
+        // Download functions
+        function downloadFile(filename, content, type) {
+            const blob = new Blob([content], { type: type });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = filename;
+            document.body.appendChild(a);
+            a.click();
+            setTimeout(() => {
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+            }, 100);
+        }
+        
+        document.getElementById('downloadCSV').addEventListener('click', function() {
+            const data = window.lookupData;
+            if (!data) return;
+            
+            let csv = 'Field,Value\n';
+            csv += `Number,"${data.number}"\n`;
+            csv += `Operator,"${data.operator}"\n`;
+            csv += `Circle,"${data.circle}"\n`;
+            csv += `Type,"${data.type}"\n`;
+            csv += `Status,"${data.status}"\n`;
+            csv += `Location,"${data.location}"\n`;
+            csv += `Timestamp,"${data.timestamp}"\n`;
+            
+            downloadFile('mobile_lookup.csv', csv, 'text/csv');
+        });
+        
+        document.getElementById('downloadJSON').addEventListener('click', function() {
+            const data = window.lookupData;
+            if (!data) return;
+            
+            const json = JSON.stringify(data, null, 2);
+            downloadFile('mobile_lookup.json', json, 'application/json');
+        });
+        
+        document.getElementById('downloadTXT').addEventListener('click', function() {
+            const data = window.lookupData;
+            if (!data) return;
+            
+            let txt = `Mobile Lookup Result\n`;
+            txt += `====================\n\n`;
+            txt += `Number: ${data.number}\n`;
+            txt += `Operator: ${data.operator}\n`;
+            txt += `Circle: ${data.circle}\n`;
+            txt += `Type: ${data.type}\n`;
+            txt += `Status: ${data.status}\n`;
+            txt += `Location: ${data.location}\n`;
+            txt += `Timestamp: ${data.timestamp}\n`;
+            
+            downloadFile('mobile_lookup.txt', txt, 'text/plain');
+        });
+    </script>
+</body>
+</html>

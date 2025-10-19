@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>MCQ Practice - EduMCQHub</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #f9fafb;
+      margin: 0; padding: 0;
+      display: flex; justify-content: center; padding: 20px;
+    }
+    .container {
+      max-width: 650px;
+      background: white;
+      padding: 25px;
+      border-radius: 12px;
+      box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+    }
+    h2 {
+      text-align: center;
+      color: #34495e;
+      margin-bottom: 20px;
+    }
+    select {
+      padding: 10px;
+      font-size: 1rem;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      width: 100%;
+      margin-bottom: 20px;
+    }
+    .question {
+      font-weight: 600;
+      font-size: 1.1rem;
+      margin-bottom: 15px;
+      color: #2c3e50;
+    }
+    .options {
+      list-style: none;
+      padding: 0;
+      margin-bottom: 15px;
+    }
+    .options li {
+      margin-bottom: 10px;
+    }
+    .options label {
+      cursor: pointer;
+      display: block;
+      padding: 10px 15px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      transition: background 0.3s;
+    }
+    .options input[type="radio"] {
+      margin-right: 12px;
+    }
+    .options label:hover {
+      background: #ecf0f1;
+    }
+    button {
+      background: #2980b9;
+      color: white;
+      font-weight: 600;
+      border: none;
+      padding: 12px 25px;
+      border-radius: 8px;
+      cursor: pointer;
+      margin-right: 10px;
+      transition: background 0.3s;
+    }
+    button:hover:not(:disabled) {
+      background: #1c5980;
+    }
+    button:disabled {
+      background: #7f8c8d;
+      cursor: not-allowed;
+    }
+    .feedback {
+      margin-bottom: 15px;
+      font-weight: 600;
+      padding: 12px 15px;
+      border-radius: 8px;
+    }
+    .correct {
+      background-color: #d4edda;
+      color: #155724;
+      border: 1px solid #c3e6cb;
+    }
+    .incorrect {
+      background-color: #f8d7da;
+      color: #721c24;
+      border: 1px solid #f5c6cb;
+    }
+    .explanation {
+      font-style: italic;
+      color: #555;
+      margin-bottom: 20px;
+    }
+    .progress-bar {
+      background: #eee;
+      border-radius: 8px;
+      overflow: hidden;
+      height: 20px;
+      margin-bottom: 20px;
+    }
+    .progress {
+      background: #2980b9;
+      height: 100%;
+      width: 0%;
+      transition: width 0.3s ease;
+    }
+    .actions {
+      margin-top: 15px;
+    }
+    .bookmark-btn {
+      background: #f39c12;
+      margin-left: 5px;
+    }
+    .bookmark-btn.bookmarked {
+      background: #27ae60;
+    }
+    .review-section {
+      margin-top: 35px;
+      border-top: 1px solid #ddd;
+      padding-top: 20px;
+    }
+    .review-section h3 {
+      margin-bottom: 15px;
+      color: #34495e;
+    }
+    .review-list {
+      list-style: none;
+      padding: 0;
+      max-height: 150px;
+      overflow-y: auto;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+    }
+    .review-list li {
+      padding: 10px 15px;
+      border-bottom: 1px solid #eee;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .review-list li:hover {
+      background: #f1f1f1;
+    }
+    @media(max-width: 700px){
+      .container {
+        max-width: 95%;
+        padding: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h2>MCQ Practice</h2>
+
+    <select id="topicFilter">
+      <option value="all">All Topics</option>
+      <option value="math">Mathematics</option>
+      <option value="physics">Physics</option>
+      <option value="chemistry">Chemistry</option>
+    </select>
+
+    <div class="progress-bar" aria-label="Progress bar">
+      <div class="progress" id="progress"></div>
+    </div>
+
+    <div id="questionContainer">
+      <div class="question" id="questionText"></div>
+      <ul class="options" id="optionsList"></ul>
+
+      <div class="feedback" id="feedback" style="display:none;"></div>
+      <div class="explanation" id="explanation" style="display:none;"></div>
+
+      <div class="actions">
+        <button id="submitBtn" disabled>Submit Answer</button>
+        <button id="nextBtn" disabled>Next Question</button>
+        <button id="bookmarkBtn" class="bookmark-btn" title="Bookmark this question">Bookmark</button>
+      </div>
+    </div>
+
+    <div class="review-section">
+      <h3>Review Mistakes</h3>
+      <ul id="reviewList" class="review-list"></ul>
+    </div>
+  </div>
+
+  <script>
+    // Sample MCQ data with explanation and topic
+    const questions = [
+      {
+        id: 1,
+        topic: 'math',
+        question: "What is the derivative of x²?",
+        options: ["2x", "x", "x²", "1"],
+        answer: 0,
+        explanation: "The derivative of x² is 2x according to basic calculus rules."
+      },
+      {
+        id: 2,
+        topic: 'physics',
+        question: "What is the unit of force?",
+        options: ["Newton", "Watt", "Pascal", "Joule"],
+        answer: 0,
+        explanation: "Force is measured in Newtons (N)."
+      },
+      {
+        id: 3,
+        topic: 'chemistry',
+        question: "What is the chemical formula of water?",
+        options: ["H2O", "CO2", "NaCl", "O2"],
+        answer: 0,
+        explanation: "Water's chemical formula is H2O."
+      },
+      {
+        id: 4,
+        topic: 'math',
+        question: "What is the value of π (pi) approximately?",
+        options: ["3.14", "2.72", "1.62", "1.41"],
+        answer: 0,
+        explanation: "Pi is approximately 3.14."
+      },
+      {
+        id: 5,
+        topic: 'physics',
+        question: "What is acceleration due to gravity on Earth?",
+        options: ["9.8 m/s²", "10 m/s²", "8.9 m/s²", "12 m/s²"],
+        answer: 0,
+        explanation: "The standard acceleration due to gravity is approximately 9.8 m/s²."
+      },
+      // Add more questions as you like
+    ];
+
+    // State variables
+    let filteredQuestions = [];
+    let currentIndex = 0;
+    let userAnswers = {};
+    let mistakes = JSON.parse(localStorage.getItem('practiceMistakes')) || [];
+    let bookmarks = JSON.parse(localStorage.getItem('practiceBookmarks')) || [];
+
+    // Elements
+    const topicFilter = document.getElementById('topicFilter');
+    const questionText = document.getElementById('questionText');
+    const optionsList = document.getElementById('optionsList');
+    const submitBtn = document.getElementById('submitBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    const feedback = document.getElementById('feedback');
+    const explanation = document.getElementById('explanation');
+    const progress = document.getElementById('progress');
+    const bookmarkBtn = document.getElementById('bookmarkBtn');
+    const reviewList = document.getElementById('reviewList');
+
+    // Initialize
+    function init() {
+      filterQuestions();
+      renderQuestion();
+      renderReviewList();
+    }
+
+    // Filter questions by topic
+    function filterQuestions() {
+      const topic = topicFilter.value;
+      if(topic === 'all') {
+        filteredQuestions = questions;
+      } else {
+        filteredQuestions = questions.filter(q => q.topic === topic);
+      }
+      currentIndex = 0;
+      userAnswers = {};
+      updateProgress();
+      clearFeedback();
+      updateBookmarkBtn();
+    }
+
+    // Render current question
+    function renderQuestion() {
+      clearFeedback();
+      submitBtn.disabled = true;
+      nextBtn.disabled = true;
+
+      if(filteredQuestions.length === 0) {
+        questionText.textContent = "No questions available for selected topic.";
+        optionsList.innerHTML = "";
+        bookmarkBtn.style.display = "none";
+        return;
+      }
+      bookmarkBtn.style.display = "inline-block";
+
+      const q = filteredQuestions[currentIndex];
+      questionText.textContent = `${currentIndex + 1}. ${q.question}`;
+
+      optionsList.innerHTML = q.options.map((opt, idx) => 
+        `<li>
+          <label>
+            <input type="radio" name="option" value="${idx}" />
+            ${opt}
+          </label>
+        </li>`
+      ).join('');
+
+      // If user already answered, disable options and show feedback
+      if(userAnswers[q.id] !== undefined) {
+        disableOptions();
+        showFeedback(q, userAnswers[q.id]);
+        nextBtn.disabled = false;
+      }
+      updateBookmarkBtn();
+      updateProgress();
+    }
+
+    // Disable options after submit
+    function disableOptions() {
+      const radios = optionsList.querySelectorAll('input[type="radio"]');
+      radios.forEach(r => r.disabled = true);
+    }
+
+    // Show feedback and explanation
+    function showFeedback(q, selected) {
+      if(selected === q.answer) {
+        feedback.textContent = "Correct!";
+        feedback.className = "feedback correct";
+        removeMistake(q.id);
+      } else {
+        feedback.textContent = "Incorrect!";
+        feedback.className = "feedback incorrect";
+        addMistake(q.id);
+      }
+      feedback.style.display = 'block';
+      explanation.textContent = q.explanation;
+      explanation.style.display = 'block';
+    }
+
+    // Clear feedback
+    function clearFeedback() {
+      feedback.style.display = 'none';
+      explanation.style.display = 'none';
+      feedback.textContent = "";
+      explanation.textContent = "";
+    }
+
+    // Submit answer handler
+    submitBtn.addEventListener('click', () => {
+      const selected = optionsList.querySelector('input[name="option"]:checked');
+      if(!selected) return;
+
+      const answer = parseInt(selected.value);
+      const q = filteredQuestions[currentIndex];
+      userAnswers[q.id] = answer;
+
+      disableOptions();
+      showFeedback(q, answer);
+
+      submitBtn.disabled = true;
+      nextBtn.disabled = false;
+
+      updateProgress();
+    });
+
+    // Next question handler
+    nextBtn.addEventListener('click', () => {
+      if(currentIndex < filteredQuestions.length - 1) {
+        currentIndex++;
+        renderQuestion();
+      } else {
+        alert("You have completed all questions in this topic!");
+      }
+    });
+
+    // Enable submit button only if an option is selected
+    optionsList.addEventListener('change', (e) => {
+      if(e.target.name === 'option') {
+        submitBtn.disabled = false;
+      }
+    });
+
+    // Topic filter change
+    topicFilter.addEventListener('change', () => {
+      filterQuestions();
+      renderQuestion();
+    });
+
+    // Progress update
+    function updateProgress() {
+      const total = filteredQuestions.length;
+      const answered = Object.keys(userAnswers).length;
+      const percent = total ? (answered / total) * 100 : 0;
+      progress.style.width = percent + '%';
+    }
+
+    // Mistakes handling (localStorage)
+    function addMistake(id) {
+      if(!mistakes.includes(id)) {
+        mistakes.push(id);
+        localStorage.setItem('practiceMistakes', JSON.stringify(mistakes));
+        renderReviewList();
+      }
+    }
+    function removeMistake(id) {
+      mistakes = mistakes.filter(mid => mid !== id);
+      localStorage.setItem('practiceMistakes', JSON.stringify(mistakes));
+      renderReviewList();
+    }
+
+    // Bookmarks handling (localStorage)
+    bookmarkBtn.addEventListener('click', () => {
+      const q = filteredQuestions[currentIndex];
+      if(bookmarks.includes(q.id)) {
+        bookmarks = bookmarks.filter(bid => bid !== q.id);
+        bookmarkBtn.classList.remove('bookmarked');
+        bookmarkBtn.textContent = "Bookmark";
+      } else {
+        bookmarks.push(q.id);
+        bookmarkBtn.classList.add('bookmarked');
+        bookmarkBtn.textContent = "Bookmarked";
+      }
+      localStorage.setItem('practiceBookmarks', JSON.stringify(bookmarks));
+    });
+
+    function updateBookmarkBtn() {
+      const q = filteredQuestions[currentIndex];
+      if(bookmarks.includes(q.id)) {
+        bookmarkBtn.classList.add('bookmarked');
+        bookmarkBtn.textContent = "Bookmarked";
+      } else {
+        bookmarkBtn.classList.remove('bookmarked');
+        bookmarkBtn.textContent = "Bookmark";
+      }
+    }
+
+    // Review mistakes list render
+    function renderReviewList() {
+      if(mistakes.length === 0) {
+        reviewList.innerHTML = "<li>No mistakes to review!</li>";
+        return;
+      }
+      const items = mistakes.map(id => {
+        const q = questions.find(qq => qq.id === id);
+        if(!q) return '';
+        return `<li data-id="${id}">${q.question}</li>`;
+      });
+      reviewList.innerHTML = items.join('');
+    }
+
+    // Click on mistake question to load it
+    reviewList.addEventListener('click', e => {
+      if(e.target.tagName === 'LI') {
+        const id = parseInt(e.target.getAttribute('data-id'));
+        const idx = filteredQuestions.findIndex(q => q.id === id);
+        if(idx !== -1) {
+          currentIndex = idx;
+          renderQuestion();
+        } else {
+          alert("This question is not in current topic. Change topic or clear filter.");
+        }
+      }
+    });
+
+    // Initialize on page load
+    window.onload = () => {
+      init();
+    };
+  </script>
+
+</body>
+</html>

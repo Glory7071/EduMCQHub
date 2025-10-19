@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>PYQs from Top Exams | EduMCQHub</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    body {
+      background: #f0f4f8;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+
+    .pyqs-container {
+      max-width: 1000px;
+      margin: 3rem auto;
+      padding: 0 1rem;
+    }
+
+    h2 {
+      text-align: center;
+      font-weight: 700;
+      color: #2c3e50;
+      margin-bottom: 1rem;
+      font-size: 2rem;
+    }
+
+    .controls {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      margin-bottom: 2rem;
+      gap: 1rem;
+    }
+
+    select, input[type="text"] {
+      padding: 0.6rem 1rem;
+      font-size: 1rem;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      flex: 1;
+      min-width: 180px;
+    }
+
+    .pyq-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .pyq-card {
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      padding: 1.5rem 1.8rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    .pyq-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+    }
+
+    .pyq-title {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: #34495e;
+      margin-bottom: 1rem;
+      min-height: 3em;
+    }
+
+    iframe {
+      border: none;
+      margin-bottom: 1rem;
+      border-radius: 6px;
+    }
+
+    .btns {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+
+    .btns a {
+      padding: 0.5rem 1rem;
+      font-weight: 600;
+      font-size: 0.9rem;
+      border-radius: 6px;
+      text-decoration: none;
+      color: white;
+      background: #2980b9;
+      box-shadow: 0 3px 8px rgba(41, 128, 185, 0.4);
+      transition: background 0.3s ease;
+    }
+
+    .btns a:hover {
+      background: #1c5980;
+    }
+
+    @media (max-width: 480px) {
+      .pyq-card {
+        padding: 1rem 1.2rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="pyqs-container">
+    <h2>🧪 Previous Year Questions (PYQs)</h2>
+
+    <div class="controls">
+      <select id="examFilter">
+        <option value="all">All Exams</option>
+        <option value="iitjam">IIT JAM</option>
+        <option value="cuet">CUET PG</option>
+        <option value="mca">MCA Entrance</option>
+        <option value="msc">MSc Entrance</option>
+      </select>
+
+      <input type="text" id="searchInput" placeholder="Search by subject, year..." />
+    </div>
+
+    <div class="pyq-list" id="pyqList">
+      <!-- Cards will be injected here -->
+    </div>
+  </div>
+
+  <script>
+  const pyqs = [
+    {
+      title: "IIT JAM math - 2024",
+      preview: "https://drive.google.com/file/d/1Tk3y-qNzousGdmW1xan7JXyv7EV_iL1R/view?usp=sharing",
+      download: "https://drive.google.com/file/d/1Tk3y-qNzousGdmW1xan7JXyv7EV_iL1R/view?usp=sharing",
+      exam: "iitjam"
+    },
+    {
+      title: "CUET PG Physics - 2023",
+      preview:"https://drive.google.com/file/d/145DCy5Ffs1yadryStY8x5qRSWEYKwAQJ/view?usp=sharing",
+      download:"https://drive.google.com/file/d/145DCy5Ffs1yadryStY8x5qRSWEYKwAQJ/view?usp=sharing",
+      exam:"physics"
+    },
+    {
+      title: "MCA Entrance - 2022",
+      preview:"https://drive.google.com/file/d/1c7aAXQ5s-ciGrxwuvU6cp-2VcmaAOZ-k/view?usp=sharing",
+      download:"https://drive.google.com/file/d/1c7aAXQ5s-ciGrxwuvU6cp-2VcmaAOZ-k/view?usp=sharing",
+      exam: "mca"
+    },
+    {
+      title: "MSc Mathematics - 2021",
+      preview:"https://drive.google.com/file/d/1qgape1hWrQNyxYLMtgZPfi-XE90xSwCc/view?usp=sharing",
+      download:"https://drive.google.com/file/d/1qgape1hWrQNyxYLMtgZPfi-XE90xSwCc/view?usp=sharing",
+      exam: "msc"
+    },
+    {
+      title: "CUET PG Computer Science - 2022",
+      preview:"https://drive.google.com/file/d/1bQngOaR4UbQbm4-89ev3vcVWn6LACu0V/view?usp=sharing",
+      download:"https://drive.google.com/file/d/1bQngOaR4UbQbm4-89ev3vcVWn6LACu0V/view?usp=sharing",
+      exam: "cuet"
+    },
+    {
+      title: "CUET PG Chemistry - 2024",
+      preview:"https://drive.google.com/file/d/1qgape1hWrQNyxYLMtgZPfi-XE90xSwCc/view?usp=sharing",
+      download:"https://drive.google.com/file/d/1qgape1hWrQNyxYLMtgZPfi-XE90xSwCc/view?usp=sharing",
+      exam: "cuet"
+    }
+  ];
+
+  const pyqList = document.getElementById('pyqList');
+  const examFilter = document.getElementById('examFilter');
+  const searchInput = document.getElementById('searchInput');
+
+  function renderPYQs() {
+    const filter = examFilter.value.toLowerCase();
+    const search = searchInput.value.toLowerCase();
+
+    pyqList.innerHTML = '';
+
+    const filtered = pyqs.filter(pyq =>
+      (filter === 'all' || pyq.exam === filter) &&
+      pyq.title.toLowerCase().includes(search)
+    );
+
+    if (filtered.length === 0) {
+      pyqList.innerHTML = "<p>No matching PYQs found.</p>";
+      return;
+    }
+
+    filtered.forEach(pyq => {
+      const card = document.createElement('div');
+      card.className = 'pyq-card';
+
+      const isGoogleDrive = pyq.preview && pyq.download;
+
+      card.innerHTML = `
+        <div class="pyq-title">${pyq.title}</div>
+        <div class="btns">
+          <a href="${isGoogleDrive ? pyq.preview : pyq.link}" target="_blank">View</a>
+          <a href="${isGoogleDrive ? pyq.download : pyq.link}" download>Download</a>
+        </div>
+      `;
+
+      pyqList.appendChild(card);
+    });
+  }
+
+  examFilter.addEventListener('change', renderPYQs);
+  searchInput.addEventListener('input', renderPYQs);
+
+  renderPYQs();
+</script>

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Unit 2: Process Management</title>
+  <link rel="stylesheet" href="styleos2unit.css">
+  <script defer src="scriptos2unit.js"></script>
+</head>
+<body>
+
+  <!-- Side Quotes -->
+  <!-- LEFT MOTIVATION PANEL -->
+<div class="motivation-left">
+  <img id="left-img" src="assets/inspire1.jpg" alt="Motivational Left" width="100%">
+  <p>"Discipline is your true scheduler."</p>
+</div>
+
+<!-- RIGHT MOTIVATION PANEL -->
+<div class="motivation-right">
+  <img id="right-img" src="assets/motivate1.jpg" alt="Motivational Right" width="100%">
+  <p>"Keep executing even if the system lags."</p>
+</div>
+
+
+  <!-- Container -->
+  <div class="container">
+    <h1>⚙️ Unit 2: Process Management</h1>
+
+    <h2>🔄 Process States</h2>
+    <ul>
+      <li><strong>New:</strong> Process is being created.</li>
+      <li><strong>Ready:</strong> Waiting for CPU assignment.</li>
+      <li><strong>Running:</strong> Executing on CPU.</li>
+      <li><strong>Waiting:</strong> Awaiting an event (I/O etc).</li>
+      <li><strong>Terminated:</strong> Completed execution.</li>
+    </ul>
+
+    <blockquote>“Process life cycle is like life — transitions define progress.”</blockquote>
+
+    <h2>🧾 Process Control Block (PCB)</h2>
+    <p>The PCB contains:</p>
+    <ul>
+      <li>PID, State, Program Counter</li>
+      <li>CPU Registers, Memory Info, I/O Info</li>
+      <li>Accounting info (CPU time used, etc.)</li>
+    </ul>
+
+    <h2>🔁 Context Switching</h2>
+    <p>Switching between processes involves:</p>
+    <ul>
+      <li>Saving current state to PCB</li>
+      <li>Loading next process from PCB</li>
+      <li>Overhead due to time in switching</li>
+    </ul>
+
+    <h2>🧠 CPU Scheduling Algorithms</h2>
+    <ul>
+      <li><strong>FCFS:</strong> First-come-first-serve</li>
+      <li><strong>SJF:</strong> Shortest Job First</li>
+      <li><strong>Priority Scheduling</strong></li>
+      <li><strong>Round Robin:</strong> Equal time slices</li>
+      <li><strong>Multilevel Queue:</strong> Different queues, different algorithms</li>
+    </ul>
+
+    <div class="image-box">
+      <img src="assets/scheduler1.png" id="rotating-image" alt="CPU Scheduling Chart">
+    </div>
+
+    <h3>📊 Gantt Chart Example (FCFS, SJF, RR)</h3>
+    <pre>
+FCFS: | P1 | P2 | P3 | P4 | 
+       0    5    8   16   22
+SJF:  | P2 | P1 | P4 | P3 | 
+       0    3    8   14   22
+RR:   | P1 | P2 | P3 | P4 | P1 | ...
+    </pre>
+
+    <h3>❓ Quiz Time</h3>
+    <ul>
+      <li>What is PCB?</li>
+      <li>Define Context Switching.</li>
+      <li>Which algorithm causes starvation?</li>
+      <li>What is a time quantum?</li>
+    </ul>
+
+    <div class="nav-buttons">
+      <a class="nav-link" href="unit1-os-basics.html">← Previous Unit</a>
+      <a class="nav-link" href="unit3-threads.html">Next Unit →</a>
+    </div>
+  </div>
+
+</body>
+</html>

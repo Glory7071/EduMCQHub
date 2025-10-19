@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Mock Test - Stepwise Questions</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #f9fafb;
+      margin: 0; padding: 20px;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      min-height: 100vh;
+    }
+    .container {
+      background: white;
+      max-width: 600px;
+      width: 100%;
+      padding: 25px;
+      border-radius: 10px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    }
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+      color: #2c3e50;
+    }
+    .timer {
+      text-align: right;
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: #e74c3c;
+      margin-bottom: 15px;
+    }
+    .question-number {
+      font-weight: 600;
+      margin-bottom: 8px;
+      color: #34495e;
+    }
+    .question-text {
+      font-size: 1.15rem;
+      margin-bottom: 15px;
+      color: #2c3e50;
+    }
+    .options label {
+      display: block;
+      margin-bottom: 12px;
+      cursor: pointer;
+      font-size: 1rem;
+      color: #34495e;
+      user-select: none;
+    }
+    input[type="radio"] {
+      margin-right: 10px;
+      cursor: pointer;
+    }
+    .buttons {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 25px;
+    }
+    button {
+      background: #2980b9;
+      border: none;
+      padding: 10px 22px;
+      font-size: 1rem;
+      color: white;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    button:disabled {
+      background: #95a5a6;
+      cursor: not-allowed;
+    }
+    button:hover:not(:disabled) {
+      background: #1c5980;
+    }
+    #resultBox {
+      margin-top: 30px;
+      color: #2c3e50;
+    }
+    .answer-explanation {
+      margin-top: 8px;
+      font-style: italic;
+      color: #555;
+    }
+    .leaderboard {
+      margin-top: 30px;
+    }
+    .leaderboard table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    .leaderboard th, .leaderboard td {
+      border: 1px solid #ddd;
+      padding: 8px;
+      text-align: left;
+    }
+    .leaderboard th {
+      background-color: #2980b9;
+      color: white;
+    }
+    /* Login & Test select */
+    #loginSection, #selectSection {
+      max-width: 400px;
+      margin: 20px auto;
+      background: white;
+      padding: 25px;
+      border-radius: 10px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    }
+    #loginSection input[type=text], #selectSection select {
+      width: 100%;
+      padding: 10px 12px;
+      font-size: 1rem;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      margin-bottom: 12px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Login -->
+  <div id="loginSection">
+    <h2>Login to Start Test</h2>
+    <input type="text" id="userName" placeholder="Enter your name" />
+    <button id="loginBtn">Login</button>
+  </div>
+
+  <!-- Select Mock Test -->
+  <div id="selectSection" style="display:none;">
+    <h2>Select Mock Test</h2>
+    <select id="mockSelect">
+      <option value="mock1">Mock 1 - CUET CS</option>
+      <option value="mock2">Mock 2 - CUET CS</option>
+    </select>
+    <button id="startBtn">Start Test</button>
+  </div>
+
+  <!-- Quiz Container -->
+  <div class="container" id="quizSection" style="display:none;">
+    <div class="timer">Time Left: <span id="timeLeft">05:00</span></div>
+    <div class="question-number" id="questionNumber"></div>
+    <div class="question-text" id="questionText"></div>
+    <div class="options" id="optionsContainer"></div>
+    <div class="buttons">
+      <button id="prevBtn" disabled>Previous</button>
+      <button id="nextBtn">Next</button>
+    </div>
+  </div>
+
+  <!-- Result Section -->
+  <div class="container" id="resultSection" style="display:none;">
+    <h2>Test Result</h2>
+    <div id="resultBox"></div>
+    <div class="leaderboard" id="leaderboardSection">
+      <h3>Leaderboard</h3>
+      <table>
+        <thead>
+          <tr><th>Name</th><th>Score</th><th>Percent</th></tr>
+        </thead>
+        <tbody id="leaderboardTable"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <script>
+    const questionSets = {
+      mock1: [
+        {
+          question: "Which of the following is not a programming language?",
+          options: ["Python", "HTML", "Java", "C++"],
+          answer: "HTML",
+          explanation: "HTML is a markup language, not a programming language."
+        },
+        {
+          question: "Which data structure uses FIFO?",
+          options: ["Stack", "Array", "Queue", "Tree"],
+          answer: "Queue",
+          explanation: "Queue stands for First In First Out."
+        },
+        {
+          question: "What symbol is used for comments in HTML?",
+          options: ["//", "#", "<!-- -->", "/* */"],
+          answer: "<!-- -->",
+          explanation: "HTML comments use <!-- -->."
+        }
+      ],
+      mock2: [
+        {
+          question: "What does CPU stand for?",
+          options: ["Central Processing Unit", "Computer Personal Unit", "Central Programming Unit", "Control Processing Unit"],
+          answer: "Central Processing Unit",
+          explanation: "CPU stands for Central Processing Unit."
+        },
+        {
+          question: "Which one is a relational database?",
+          options: ["MongoDB", "Oracle", "Redis", "Firebase"],
+          answer: "Oracle",
+          explanation: "Oracle is a relational database system."
+        }
+      ]
+    };
+
+    // Elements
+    const loginSection = document.getElementById('loginSection');
+    const selectSection = document.getElementById('selectSection');
+    const quizSection = document.getElementById('quizSection');
+    const resultSection = document.getElementById('resultSection');
+
+    const userNameInput = document.getElementById('userName');
+    const loginBtn = document.getElementById('loginBtn');
+    const mockSelect = document.getElementById('mockSelect');
+    const startBtn = document.getElementById('startBtn');
+
+    const timeLeftEl = document.getElementById('timeLeft');
+    const questionNumberEl = document.getElementById('questionNumber');
+    const questionTextEl = document.getElementById('questionText');
+    const optionsContainer = document.getElementById('optionsContainer');
+
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+
+    const resultBox = document.getElementById('resultBox');
+    const leaderboardTable = document.getElementById('leaderboardTable');
+
+    let currentSet = [];
+    let currentIndex = 0;
+    let answers = [];  // store user answers by index
+    let timerInterval;
+    let timeRemaining = 300; // 5 minutes
+
+    let userName = "";
+
+    // Login logic
+    loginBtn.addEventListener('click', () => {
+      const name = userNameInput.value.trim();
+      if(!name) {
+        alert("Please enter your name");
+        return;
+      }
+      userName = name;
+      loginSection.style.display = 'none';
+      selectSection.style.display = 'block';
+    });
+
+    // Start test
+    startBtn.addEventListener('click', () => {
+      currentSet = questionSets[mockSelect.value];
+      if (!currentSet || currentSet.length === 0) {
+        alert("Selected mock test is empty!");
+        return;
+      }
+      answers = new Array(currentSet.length).fill(null);
+      currentIndex = 0;
+      selectSection.style.display = 'none';
+      quizSection.style.display = 'block';
+      resultSection.style.display = 'none';
+      timeRemaining = 300; // reset 5 mins
+      startTimer();
+      renderQuestion();
+    });
+
+    // Timer logic
+    function startTimer() {
+      updateTimerDisplay();
+      clearInterval(timerInterval);
+      timerInterval = setInterval(() => {
+        timeRemaining--;
+        if(timeRemaining <= 0) {
+          clearInterval(timerInterval);
+          alert("Time's up! Auto-submitting your test.");
+          submitTest();
+          return;
+        }
+        updateTimerDisplay();
+      }, 1000);
+    }
+
+    function updateTimerDisplay() {
+      const mins = String(Math.floor(timeRemaining / 60)).padStart(2,'0');
+      const secs = String(timeRemaining % 60).padStart(2,'0');
+      timeLeftEl.textContent = `${mins}:${secs}`;
+    }
+
+    // Render question and options
+    function renderQuestion() {
+      const q = currentSet[currentIndex];
+      questionNumberEl.textContent = `Question ${currentIndex + 1} of ${currentSet.length}`;
+      questionTextEl.textContent = q.question;
+
+      optionsContainer.innerHTML = q.options.map(opt => {
+        const checked = answers[currentIndex] === opt ? 'checked' : '';
+        return `<label><input type="radio" name="option" value="${opt}" ${checked}> ${opt}</label>`;
+      }).join('');
+
+      // Disable prev on first question
+      prevBtn.disabled = currentIndex === 0;
+      // Change next button text to submit if last question
+      nextBtn.textContent = currentIndex === currentSet.length - 1 ? 'Submit' : 'Next';
+    }
+
+    // Save answer when user selects option
+    optionsContainer.addEventListener('change', e => {
+      if (e.target.name === 'option') {
+        answers[currentIndex] = e.target.value;
+      }
+    });
+
+    // Navigation buttons
+    prevBtn.addEventListener('click', () => {
+      if(currentIndex > 0){
+        currentIndex--;
+        renderQuestion();
+      }
+    });
+
+    nextBtn.addEventListener('click', () => {
+      if (currentIndex === currentSet.length -1) {
+        // Last question - submit test
+        submitTest();
+      } else {
+        currentIndex++;
+        renderQuestion();
+      }
+    });
+
+    // Submit and show results
+    function submitTest() {
+      clearInterval(timerInterval);
+      quizSection.style.display = 'none';
+      resultSection.style.display = 'block';
+
+      let score = 0;
+      currentSet.forEach((q, idx) => {
+        if(answers[idx] === q.answer) score++;
+      });
+
+      const percent = ((score / currentSet.length) * 100).toFixed(2);
+
+      // Result HTML with explanations
+      let resultHTML = `
+        <p><strong>Name:</strong> ${userName}</p>
+        <p><strong>Score:</strong> ${score} / ${currentSet.length}</p>
+        <p><strong>Percentage:</strong> ${percent}%</p>
+        <h3>Answer Key & Explanations:</h3>
+        <ol>
+      `;
+
+      currentSet.forEach((q, idx) => {
+        const userAns = answers[idx] || "<em>No answer</em>";
+        const correct = q.answer;
+        const isCorrect = userAns === correct;
+        resultHTML += `
+          <li>
+            <strong>Q${idx + 1}:</strong> ${q.question}<br/>
+            Your answer: <span style="color:${isCorrect ? 'green' : 'red'}">${userAns}</span><br/>
+            Correct answer: <strong>${correct}</strong><br/>
+            <div class="answer-explanation">${q.explanation}</div>
+          </li>
+        `;
+      });
+      resultHTML += '</ol>';
+      resultBox.innerHTML = resultHTML;
+
+      saveToLeaderboard({name: userName, score, percent});
+      displayLeaderboard();
+    }
+
+    // Leaderboard logic using localStorage
+    function saveToLeaderboard(entry) {
+      const key = 'mockQuizLeaderboard';
+      let data = JSON.parse(localStorage.getItem(key)) || [];
+      data.push(entry);
+      data.sort((a,b) => b.score - a.score || b.percent - a.percent);
+      if(data.length > 10) data = data.slice(0,10); // keep top 10
+      localStorage.setItem(key, JSON.stringify(data));
+    }
+
+    function displayLeaderboard() {
+      const key = 'mockQuizLeaderboard';
+      let data = JSON.parse(localStorage.getItem(key)) || [];
+      leaderboardTable.innerHTML = data.map(item => 
+        `<tr><td>${item.name}</td><td>${item.score}</td><td>${item.percent}%</td></tr>`
+      ).join('');
+    }
+
+    // On page load, show leaderboard if exists
+    window.onload = () => {
+      displayLeaderboard();
+    };
+  </script>
+</body>
+</html>
